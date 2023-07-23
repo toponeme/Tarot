@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-image: url('Firstpage.png'); /* 将背景图片路径替换为 Firstpage.png */
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      height: 100vh; /* 设置 body 的高度为视口高度 */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column; /* 将按钮和表单容器垂直排列 */
+    }
+    .button {
+      margin-bottom: 120px; /* 添加下边距，将按钮位置向上移动一段距离 */
+      padding: 50px 100px; /* 增大按钮的内边距，增大按钮的面积 */
+      background-color: transparent; /* 设置按钮背景为透明 */
+      color: #fff;
+      font-size: 18px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      position: fixed; /* 使用固定定位 */
+      bottom: 20px; /* 按钮距离视口底部的距离 */
+      left: 50%; /* 将按钮水平居中 */
+      transform: translateX(-50%); /* 水平居中的偏移修正 */
+    }
+    .form-container {
+      display: none;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 4px;
+    }
+    .form-container input {
+      margin-bottom: 10px;
+      padding: 5px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .form-container button {
+      display: block;
+      margin: 0 auto; /* 使用自动外边距将按钮水平居中 */
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: #fff;
+      font-size: 16px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  </style>
+  <script>
+    function showForm() {
+      var formContainer = document.getElementById("form-container");
+      formContainer.style.display = "block";
+    }
+
+    function calculateZodiac() {
+      var birthdateInput = document.getElementById("birthdate");
+      var zodiacInput = document.getElementById("zodiac");
+      var birthdate = new Date(birthdateInput.value);
+      var month = birthdate.getMonth() + 1;
+      var day = birthdate.getDate();
+      var zodiac = "";
+
+      if ((month == 1 && day >= 20) || (month == 2 && day <= 18)) {
+        zodiac = "水瓶座";
+      } else if ((month == 2 && day >= 19) || (month == 3 && day <= 20)) {
+        zodiac = "双鱼座";
+      } else if ((month == 3 && day >= 21) || (month == 4 && day <= 19)) {
+        zodiac = "白羊座";
+      } else if ((month == 4 && day >= 20) || (month == 5 && day <= 20)) {
+        zodiac = "金牛座";
+      } else if ((month == 5 && day >= 21) || (month == 6 && day <= 21)) {
+        zodiac = "双子座";
+      } else if ((month == 6 && day >= 22) || (month == 7 && day <= 22)) {
+        zodiac = "巨蟹座";
+      } else if ((month == 7 && day >= 23) || (month == 8 && day <= 22)) {
+        zodiac = "狮子座";
+      } else if ((month == 8 && day >= 23) || (month == 9 && day <= 22)) {
+        zodiac = "处女座";
+      } else if ((month == 9 && day >= 23) || (month == 10 && day <= 23)) {
+        zodiac = "天秤座";
+      } else if ((month == 10 && day >= 24) || (month == 11 && day <= 22)) {
+        zodiac = "天蝎座";
+      } else if ((month == 11 && day >= 23) || (month == 12 && day <= 21)) {
+        zodiac = "射手座";
+      } else if ((month == 12 && day >= 22) || (month == 1 && day <= 19)) {
+        zodiac = "摩羯座";
+      }
+
+      zodiacInput.value = zodiac;
+    }
+    
+    function submitForm() {
+      var form = document.getElementById("myForm");
+      form.action = "ceshi.html"; // 跳转到该网址并提交表单数据
+      form.submit();
+    }
+/*    function submitForm() {
+      var birthdateInput = document.getElementById("birthdate");
+      var zodiacInput = document.getElementById("zodiac");
+      
+      // 获取出生日期和星座的值
+      var birthdate = birthdateInput.value;
+      var zodiac = zodiacInput.value;
+      
+      // 构建表单数据
+      var formData = new FormData();
+      formData.append("birthdate", birthdate);
+      formData.append("zodiac", zodiac);
+      
+      // 构建要跳转的页面 URL
+      var url = "form.html"; // 将 "指定页面的 URL" 替换为实际的 URL
+      
+      // 创建一个隐藏的表单，用于提交数据
+      var hiddenForm = document.createElement("form");
+      hiddenForm.setAttribute("method", "post");
+      hiddenForm.setAttribute("action", url);
+      
+      // 将表单数据附加到隐藏表单中
+      for (var pair of formData.entries()) {
+        var input = document.createElement("input");
+        input.setAttribute("type", "hidden");
+        input.setAttribute("name", pair[0]);
+        input.setAttribute("value", pair[1]);
+        hiddenForm.appendChild(input);
+      }
+      
+      // 将隐藏表单添加到当前页面中并提交
+      document.body.appendChild(hiddenForm);
+      hiddenForm.submit();
+    }
+*/
+  </script>
+</head>
+<body>
+  <button class="button" onclick="showForm()"></button>
+  <div id="form-container" class="form-container">
+    <form id="myForm">
+      <label for="birthdate">出生日期:</label>
+      <input type="date" id="birthdate" name="birthdate" onchange="calculateZodiac()">
+
+      <label for="zodiac">星座:</label>
+      <input type="text" id="zodiac" name="zodiac" placeholder="系统将根据出生日期自动匹配星座。">
+
+      <button type="button" onclick="submitForm()">提交</button>
+    </form>
+  </div>
+</body>
+</html>

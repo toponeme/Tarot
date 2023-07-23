@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-family: Arial, sans-serif;
+      font-size: 6vw;
+      color: gold;
+      text-shadow: 0.2vw 0.2vw 0.4vw rgba(0, 0, 0, 0.5);
+    }
+    #stars {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background-image: url('star.png');
+      background-repeat: repeat;
+      animation: animateStars 200s linear infinite;
+    }
+    @keyframes animateStars {
+      0% { background-position: 0 0; }
+      100% { background-position: 100% 100%; }
+    }
+    .animated-text {
+      animation: animateText 3s ease-in-out infinite alternate;
+      margin-top: 10vw;
+    }
+    @keyframes animateText {
+      0% { transform: scale(1); }
+      100% { transform: scale(1.2); }
+    }
+    .image-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 4vw;
+    }
+    .image-container img {
+      width: 30vw;
+      height: auto;
+      margin: 1vw;
+      transition: transform 0.5s;
+    }
+    .image-container img:hover {
+      transform: rotateY(180deg);
+    }
+    .instruction {
+      margin-top: 2vw;
+      font-size: 4vw;
+      color: purple;
+    }
+    .sub-instruction {
+      margin-top: 1vw;
+      font-size: 3vw;
+      color: purple;
+    }
+    .popup {
+      position: fixed;
+      top: 58%; /* 将弹窗位置向下移动一点 */
+      left: 0;
+      transform: translateY(-50%);
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+    }
+    .popup.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .popup-content {
+      background-color: rgba(128, 0, 128, 0.2); /* 将透明度设置为0.2 */
+      padding: 4vw; /* 增大弹窗的内边距 */
+      border-radius: 1vw; /* 设置边框为圆角 */
+      text-align: center;
+    }
+    .popup-title {
+      font-size: 4vw;
+      color: purple;
+      margin-bottom: 2vw;
+    }
+    .popup-options {
+      display: flex;
+      justify-content: center;
+      margin-top: 2vw;
+    }
+    .popup-option {
+      margin: 0 1vw;
+      padding: 1vw 2vw;
+      background-color: purple;
+      color: white;
+      font-size: 3vw;
+      border-radius: 1vw; /* 设置选项边框为圆角 */
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div id="stars"></div>
+  <div class="animated-text">爱情之书</div>
+
+  <div class="image-container">
+    <img src="Cards.jpg" alt="Card 1" onclick="changeImage(this, 'BellCat.jpg'); showPopup()">
+    <img src="Cards.jpg" alt="Card 2" onclick="changeImage(this, 'BlackCat.jpg'); showPopup()">
+    <img src="Cards.jpg" alt="Card 3" onclick="changeImage(this, 'ChristCat.jpg'); showPopup()">
+  </div>
+
+  <div class="instruction">心里想着一个问题，凭直觉选择一张塔罗牌。</div>
+  <div class="sub-instruction">现在静下心来</div>
+
+  <div class="popup" id="popup">
+    <div class="popup-content">
+      <div class="popup-title">你现在的感情状态是？</div>
+      <div class="popup-options">
+        <div class="popup-option" onclick="selectOption(1)">单身</div>
+        <div class="popup-option" onclick="selectOption(2)">恋爱中</div>
+        <div class="popup-option" onclick="selectOption(3)">已分手</div>
+        <div class="popup-option" onclick="selectOption(4)">已婚</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function adjustSize() {
+      var stars = document.getElementById('stars');
+      stars.style.height = window.innerHeight + 'px';
+    }
+
+    function changeImage(element, newImage) {
+      element.src = newImage;
+    }
+
+    function showPopup() {
+      var popup = document.getElementById('popup');
+      popup.classList.add('show');
+    }
+
+    function selectOption(option) {
+      // 在这里添加处理选项的逻辑
+      console.log('选项 ' + option + ' 被选择');
+    }
+
+    adjustSize();
+    window.addEventListener('resize', adjustSize);
+  </script>
+</body>
+</html>
